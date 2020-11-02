@@ -1,3 +1,3 @@
 export class ResponseType {
-  message: string = "";
+  message: any;
 }

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { TestItemStateType } from '../../classes/TestItemStateType';
 
 import { getValue } from '../../redux/actions';
+import { api } from '../../redux/constants/api';
 
 const Textbox = () => {
   const exampleState: TestItemStateType = useSelector(
@@ -20,7 +21,7 @@ const Textbox = () => {
       ) : (
         <p>{exampleState.textboxErrorData.message}</p>
       )}
-      <button onClick={() => getValue(dispatch)}>Click</button>
+      <button onClick={() => getValue(dispatch,api)}>Click</button>
     </div>
   );
 };

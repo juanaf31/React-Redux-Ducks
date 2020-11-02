@@ -1,37 +1,38 @@
+import Axios from 'axios';
 import {
   GET_VALUE,
   GET_VALUE_SUCCESS,
   GET_VALUE_ERROR
 } from '../constants/testitem';
 
-const exAPIValue = () => {
+const exAPIValue = (api:any) => {
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
+      let responseData = Axios.get(api)
       resolve({
         success: true,
-        data: "I got value!"
+        data: responseData
       });
-    }, 500);
+    }, 10);
   });
 };
 
-export const getValue = async (dispatch: any) => {
-  dispatch({ type: GET_VALUE });
-  exAPIValue().then((response: any) => {
-    response.success ?
-      dispatch(getValueSuccess(response.data)) :
-      dispatch(getValueError(response.data))
-  });
+export const getValue = async (dispatch: any,api:any) => {
+  return await Axios.get(api)
+  .then((response: any) => {
+    console.log(response.data)
+    dispatch({type:GET_VALUE, payload:response.data})
+  })
 };
 
-const getValueSuccess = (payload: string) => {
+const getValueSuccess = (payload: any) => {
   return ({
     type: GET_VALUE_SUCCESS,
     payload
   });
 };
 
-const getValueError = (message: string) => {
+const getValueError = (message: any) => {
   return ({
     type: GET_VALUE_ERROR,
     message
